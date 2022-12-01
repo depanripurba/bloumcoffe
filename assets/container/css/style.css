@@ -1,0 +1,528 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.logo img {
+    margin-top: 5px;
+}
+
+/* navigasiBar -----------------------------------------------------------------------------------> */
+.navigasi {
+    position: fixed !important;
+    display: flex;
+    background-color: #fff;
+    justify-content: space-around;
+    height: 70px;
+    align-items: center;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+.navigasi ul {
+    display: flex;
+    list-style: none;
+    width: 40%;
+    justify-content: space-between;
+    margin-bottom: 0 !important;
+}
+
+.navigasi ul li a {
+    position: relative;
+    color: #373435;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 5px 0;
+}
+
+.navigasi ul li a:before {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: #e13236;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .2s linear;
+}
+
+.navigasi ul li a:hover:before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.navigasi ul li a:hover {
+    color: #e13236;
+}
+
+/* sub-menu navigasi */
+
+.navigasi ul li ul {
+    position: absolute;
+    flex-direction: column;
+    width: 200px;
+    background: #fff;
+    padding: 0 !important;
+    display: none;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.navigasi ul li ul li {
+    width: 100%;
+    padding: 15px 20px;
+    border-top: .1px solid #d3d3d3;
+}
+
+.navigasi ul li:focus-within>ul,
+.navigasi ul li:hover>ul {
+    display: initial;
+}
+
+/* Hamburger Menu  -------------------------------------------------------------------------------> */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    height: 20px;
+    justify-content: space-between;
+    position: relative;
+}
+
+.menu-toggle input {
+    position: absolute;
+    width: 44px;
+    height: 28px;
+    left: -8px;
+    top: -3px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+/* Hamburger Menu Animation */
+.menu-toggle span:nth-child(2) {
+    transform-origin: 0 0;
+}
+
+.menu-toggle span:nth-child(4) {
+    transform-origin: 0 100%;
+}
+
+.menu-toggle input:checked~span:nth-child(2) {
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.menu-toggle input:checked~span:nth-child(3) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+
+.menu-toggle input:checked~span:nth-child(4) {
+    transform: rotate(-45deg) translate(-1px, 0px);
+    ;
+}
+
+/* Responsive BreakPoint ========================================================================== */
+
+.desktop {
+    display: block;
+}
+
+.mobile {
+    display: none;
+}
+
+/* Ukuran Mobile (Tablet) */
+@media screen and (max-width: 940px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .navigasi ul {
+        width: 250px;
+        padding-top: 70px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        flex-direction: column;
+        align-items: left;
+        justify-content: flex-start !important;
+        background-color: #fff;
+        transform: translateX(-100%);
+        transition: all .5s;
+        opacity: 0;
+        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+        padding-left: 0 !important;
+        z-index: 2;
+        overflow: auto;
+    }
+
+    .navigasi ul li:last-child {
+        border: none;
+    }
+
+    .navigasi ul.slide {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .select {
+        padding: 15px 20px;
+        border-bottom: 1px solid #d3d3d3;
+    }
+
+    /* sub-menu */
+
+    .navigasi ul li ul {
+        position: relative;
+        display: none;
+        margin-top: 0;
+    }
+
+    .navigasi ul li ul li {
+        padding: 0px;
+        border-top: none;
+        padding-left: 10px;
+    }
+
+    .navigasi ul li:focus-within>ul,
+    .navigasi ul li:hover>ul {
+        display: initial;
+    }
+
+    /* hampa -----------------------------------------------------------------------------------------> */
+    .hamparan {
+        position: fixed;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #0c0c0cbf;
+        display: none;
+        z-index: 1;
+    }
+
+    .hamparan.ovrly {
+        display: block;
+    }
+
+}
+
+/* MainMenu ======================================================================================= */
+
+/* link */
+.product-item-content:hover {
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.product-item a {
+    color: #333;
+    text-decoration: none;
+}
+
+.product-item-content {
+    display: block;
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* label */
+.product-label.sale {
+    font-weight: 700;
+    height: 25px;
+    line-height: 24px;
+    border-radius: 3px;
+    top: 0;
+    left: 0;
+    margin: 5px 5px;
+    background: #e13236;
+}
+
+.product-label {
+    padding: 0 10px;
+    color: #fff;
+    font-size: 10px;
+    text-transform: uppercase;
+    display: inline-block;
+    position: absolute;
+    z-index: 2;
+}
+
+/* gambar */
+.product-item-content {
+    text-decoration: none;
+}
+
+.product-item-top {
+    padding-top: 100%;
+    height: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.product-item-top img,
+.product-item-top picture {
+    width: 100%;
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.product-item img {
+    transition: .3s all cubic-bezier(.45, .05, .55, .95);
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+/* info */
+.product-item-mid {
+    min-height: 65px;
+}
+
+.p-2 {
+    padding: 0.5rem !important;
+}
+
+.bg-white {
+    background-color: #fff !important;
+}
+
+.product-item-detail {
+    line-height: 1.8;
+}
+
+.product-item-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    font-weight: 600;
+    color: black !important;
+}
+
+.top-dropdown-cart .cart-list .price,
+.cart-item-price,
+.display-content-price,
+.checkout-item-price,
+.product-detail-price,
+.product-item-price {
+    color: #00aa4b;
+}
+
+.text-through {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #959595;
+    text-decoration: line-through;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.product-item {
+    margin-bottom: 20px;
+}
+
+.product-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Order ========================================================================================== */
+
+.text-header {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    line-height: 1.3em;
+}
+
+.check-out {
+    background: white;
+    padding: 0px;
+}
+
+.checkout-box {
+    background-color: #fff;
+    box-shadow: 0 0 0.25em rgb(0 0 0 / 30%);
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 25px;
+}
+
+.check-out:before {
+    background: white;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    content: "";
+    display: block;
+    background-image: repeating-linear-gradient(45deg, #6fa6d6, #6fa6d6 33px, transparent 0, transparent 41px, #f18d9b 0, #f18d9b 74px, transparent 0, transparent 82px);
+    height: 4px;
+    background-repeat: repeat-x;
+    background-size: auto 4px;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.baris {
+    display: flex;
+    margin-right: -15px;
+    margin-left: -15px;
+    justify-content: space-around;
+}
+
+@media (max-width:767px) {
+    .checkout-box {
+        padding: 20px;
+    }
+}
+
+.menu-sesi span {
+    position: relative;
+    padding-right: 5px;
+    background-color: #fff;
+    z-index: 1;
+}
+
+.menu-info,
+.menu-sesi {
+    position: relative;
+    color: #252525;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.menu-sesi:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+/* Radio =========================================================================================== */
+
+.ooef-payment-options {
+    border: 2px solid #ebebeb;
+    border-radius: 3px;
+    background-color: #fcfcfc;
+}
+
+.ooef-payment-option {
+    display: block !important;
+    margin-bottom: 0 !important;
+}
+
+.ooef-payment-option .custom-control {
+    margin: 0;
+    padding: 0.75em;
+}
+
+.custom-control {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    min-height: 1.5rem;
+}
+
+.ooef-payment-option .custom-control-label {
+    position: relative;
+    padding-left: 1.5em;
+    width: 100%;
+}
+
+.custom-control-label {
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.ooef-payment-option .custom-control-label img {
+    margin-right: 5px;
+    max-width: 70px;
+    vertical-align: middle;
+    border-radius: 3px;
+}
+
+.ooef-payment-option .custom-control-label span {
+    vertical-align: middle;
+}
+
+label>input:checked+.custom-control-label {
+    /* (RADIO CHECKED) style gambar */
+    border: 2px solid red;
+}
+
+/* Tombol Pesan ==================================================================================== */
+
+.tombol {
+    width: 100%;
+    background: #21a540 !important;
+}
+
+/* Rincian Pesanan ================================================================================= */
+
+.checkout-item-image {
+    width: 100%;
+}
+.checkout-item-image img {
+    width: 90px;
+    height: auto;
+    border: 1px solid #ddd;
+    padding: 2px;
+    border-radius: 6px;
+}
+.checkout-item-name {
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.checkout-item-price {
+    color: #00aa4b;
+}
+
+@media screen and (max-width: 768px) {
+    .space-mobile{
+        padding:10px
+    }
+}
