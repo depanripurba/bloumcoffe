@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>/assets/container/css/style.css">
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/bootstrap/css/bootstrap.min.css" defer>
-    <title>Official Website Bloum Coffe</title>
+    <title>Official Website Bloum Coffe</title>  
 </head>
 
 <body>
