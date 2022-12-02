@@ -60,3 +60,5 @@ $route['admin/kategori'] = 'AdminController/kelolakategori';
 $route['hapuskategori/(:num)'] = 'AdminController/hapuskategori/$1';
 $route['kelolamenu'] = 'AdminController/kelolamenu';
 $route['detail/(:any)'] = 'PemesananController/detailpemesanan/$1';
+$route['removepesanan/(:num)'] = 'PemesananController/removepesanan/$1';
+$route['editpesanan/(:num)/(:any)'] = 'PemesananController/editpesanan/$1/$2';

@@ -10,7 +10,14 @@
   <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css" defer>
   <title>Official Website Bloum Coffe</title>
 </head>
-
+<style>
+  .tbl{
+    opacity: 0.6;
+  }
+  .tbl:hover{
+    opacity: 1;
+  }
+</style>
 <body>
 
   <nav class="navigasi">
@@ -94,7 +101,7 @@
         <?php endforeach ?>
       </div>
       <div class="row justify-content-md-center">
-        <div class="col-8">
+        <div class="col-7">
           <div class="row">
             <?php foreach ($menu as $row) :
               $prdk = $row->namamenu;
@@ -128,37 +135,38 @@
             <?php endforeach ?>
           </div>
         </div>
-        <div class="col-3 border rounded align-self-start" style="margin-left: 20px!important;">
+        <div class="col-4 border rounded align-self-start" style="margin-left: 20px!important;">
           <span class="text-bold">Pesanan Anda</span>
           <!-- start tabel -->
-          <table class="table">
+          <table class="table" style="font-size: 12px;">
             <thead>
               <tr>
                 <th scope="col">No</th>
                 <th scope="col">Menu</th>
+                <th scope="col">Harga</th>
                 <th scope="col">Jumlah</th>
                 <th scope="col">Total</th>
                 <th scope="col">*</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody >
+              <?php $nomor = 1?>
+              <?php foreach($this->session->userdata('pesanan') as $row):?>
               <tr>
-                <td>1</td>
-                <td>Nasi Goreng</td>
-                <td>2</td>
-                <td>120000</td>
-                <td><a href="" class="btn btn-primary">X</a></td>
+                <td><?=$nomor?></td>
+                <td><?=$row['namapesanan']?></td>
+                <td>Rp. <?=number_format($row['harga'])?></td>
+                <td width="10"><?=$row['jumlahpesanan']?></td>
+                <td style="text-align:right">Rp. <?=number_format($row['totalharga'])?></td>
+                <td><a href="<?=base_url('removepesanan/'.$row['idpesanan'])?>"><img class="tbl" src="<?=base_url('assets/img/icon/delete.png')?>" width="15" alt=""></a> <a href="<?=base_url('editpesanan/'.$row['idpesanan'].'/'.$row['jumlahpesanan'])?>"><img class="tbl" src="<?=base_url('assets/img/icon/edit.png')?>" width="15" alt=""></a></td>
               </tr>
+              <?php $nomor++?>
+              <?php endforeach?>
+
               <tr>
-                <td>2</td>
-                <td>Nasi Gurih</td>
-                <td>2</td>
-                <td>120000</td>
-                <td><a href="" class="btn btn-primary">X</a></td>
-              </tr>
-              <tr>
-                <td colspan="4">total</td>
-                <td>120000</td>
+                <td colspan="4"><b>T O T A L</b></td>
+                <td style="text-align:right"><b>Rp. <?=number_format($this->session->userdata('totalharga'))?></b></td>
+                <td></td>
               </tr>
             </tbody>
           </table>
@@ -179,6 +187,8 @@
         </div>
       </div>
     </div>
+  </section>
+  <section>
   </section>
   <!-- end bagian isi -->
   <!-- end bagian kategori menu -->

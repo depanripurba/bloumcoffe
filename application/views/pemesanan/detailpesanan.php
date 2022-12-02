@@ -76,6 +76,7 @@
                             <input name="namapesanan" type="hidden" value="<?=$detail->namamenu?>">
                             <label for="nama">Nama Pesanan</label>
                             <input type="hidden" name="id" value="<?=$detail->id?>">
+                            <input type="hidden" name="harga" value="<?=$detail->harga?>">
                             <input value="<?=$detail->namamenu?>" id="nama" disabled type="text" class="form-control">
                         </div>
                         <div class="form-group mb-3">
