@@ -8,16 +8,20 @@ class PemesananController extends CI_Controller
         parent::__construct();
         $this->load->model('MenuModel');
         $this->load->model('KategoriModel');
+        $this->load->model('MejaModel');
+        $this->load->model('PesananModel');
     }
     public function index()
     {
         $data['kategori'] = $this->KategoriModel->getall();
         $data['menu'] = $this->MenuModel->getall();
+        $data['meja'] = $this->MejaModel->getall();
         $this->load->view('pemesanan/pemesanan', $data);
     }
 
     public function detailpemesanan($idproduk)
     {
+        $data['meja'] = $this->MejaModel->getall();
         $data['detail'] = $this->MenuModel->getspesifik($idproduk);
         $this->load->view('pemesanan/detailpesanan', $data);
     }
@@ -81,6 +85,7 @@ class PemesananController extends CI_Controller
     {
         $data['detail'] = $this->MenuModel->getspesifik($id);
         $data['jumlahpesanan'] = $jumlahpesanan;
+        $data['meja'] = $this->MejaModel->getall();
         $this->load->view('pemesanan/editpesanan', $data);
     }
 
@@ -89,6 +94,50 @@ class PemesananController extends CI_Controller
         $rootsession = $this->session->userdata('pesanan');
         $rootsession[$_GET['id']]['jumlahpesanan'] = $_GET['jumlah'];
         $this->session->set_userdata('pesanan', $rootsession);
-        redirect(base_url());
+        redirect(base_url('editpesanan/'.$_GET['id']."/".$_GET['jumlah']));
     }
+
+    public function prosespesanan()   
+    {
+       if($this->PesananModel->setpesanan())
+       {
+        $this->session->unset_userdata('pesanan');
+        $this->session->unset_userdata('totalharga');
+        redirect(base_url());
+       }else{
+        echo "Gagal dimasukkan ke database";
+       }
+    }
+    public function uptokoki()
+    {
+        if ($this->PesananModel->kirimkekoki($_POST['form_idpesanan']))
+        {
+            redirect(base_url("akseskasir"));
+        }
+    }
+
+    public function cooking()
+    {
+        if ($this->PesananModel->cooking($_POST['kodePesanan']))
+        {
+            redirect(base_url("akseskoki"));
+        }
+    }
+    public function bayar()
+    {
+        if ($this->PesananModel->bayarPesanan($_POST['form_idpesanan']))
+        {
+            redirect(base_url("akseskasir"));
+        }
+    }
+
+    public function upfinish()
+    {
+        if ($this->PesananModel->selesaimasak($_POST['kodePesanan']))
+        {
+            redirect(base_url("akseskoki"));
+        }
+    }
+
+    
 }

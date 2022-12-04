@@ -11,13 +11,29 @@
   <title>Official Website Bloum Coffe</title>
 </head>
 <style>
-  .tbl{
+  .tbl {
     opacity: 0.6;
   }
-  .tbl:hover{
+
+  .tbl:hover {
     opacity: 1;
   }
+
+  .profil {
+    border: 1px solid #d23c8d;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    padding: 2px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    background: #d23c8d;
+    color: white;
+
+  }
 </style>
+
 <body>
 
   <nav class="navigasi">
@@ -37,11 +53,12 @@
       <li>
         <div class="select"><a href="kontak">Kontak</a></div>
       </li>
-      <?php if (isset($_SESSION['data'])) : ?>
-        <li>
-          <div class="select"><a href="logout.php">Log Out</a></div>
-        </li>
-      <?php endif ?>
+      <li>
+        <div class="select"><a href="logout.php">Log Out</a></div>
+      </li>
+      <li>
+        <div class="profil">DP</div>
+      </li>
     </ul>
     <div class="menu-toggle">
       <input type="checkbox">
@@ -52,43 +69,7 @@
   </nav>
 
   <div class="hamparan"></div>
-
-   <!-- carousel-img -->
-   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="padding-top:70px">
-        <div class=" carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="desktop" src="<?=base_url('')?>assets/img/slide/bg-slide-1.jpg" style="width: 100%;" alt="">
-                <img class="mobile" src="<?=base_url('')?>assets/img/slide/bg-slide-1_mobile.jpg" style="width: 100%;" alt="">
-            </div>
-            <div class="carousel-item">
-                <img class="desktop" src="<?=base_url('')?>assets/img/slide/bg-slide-2.jpg" style="width: 100%;" alt="">
-                <img class="mobile" src="<?=base_url('')?>assets/img/slide/bg-slide-2_mobile.jpg" style="width: 100%;" alt="">
-            </div>
-            <div class="carousel-item">
-                <img class="desktop" src="<?=base_url('')?>assets/img/slide/bg-slide-3.jpg" style="width: 100%;" alt="">
-                <img class="mobile" src="<?=base_url('')?>assets/img/slide/bg-slide-3_mobile.jpg" style="width: 100%;" alt="">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-    <!-- / carousel-img -->
+  <div style="height: 70px;"></div>
   <!-- bagian kategori menu -->
 
   <!-- bagian isi -->
@@ -112,7 +93,7 @@
             ?>
 
               <div class="col-lg-3 col-sm-3 col-10 product-item">
-                <a href="<?=base_url('detail/'.$idpk)?>" class="product-item-content">
+                <a href="<?= base_url('detail/' . $idpk) ?>" class="product-item-content">
                   <div class="product-label sale">sale</div>
                   <div id="collections-image" class="product-item-top">
                     <img src="<?= base_url('upload/menu/' . $gmbr) ?>" class="auto-image">
@@ -126,7 +107,7 @@
                         <span class="text-bold">Rp. <?= number_format($harg) ?></span>
                       </div>
                       <div>
-                       <span class="label sale text-primary">Tersedia</span>
+                        <span class="label sale text-primary">Tersedia</span>
                       </div>
                     </div>
                   </div>
@@ -138,52 +119,65 @@
         <div class="col-4 border rounded align-self-start" style="margin-left: 20px!important;">
           <span class="text-bold">Pesanan Anda</span>
           <!-- start tabel -->
-          <table class="table" style="font-size: 12px;">
-            <thead>
-              <tr>
-                <th scope="col">No</th>
-                <th scope="col">Menu</th>
-                <th scope="col">Harga</th>
-                <th scope="col">Jumlah</th>
-                <th scope="col">Total</th>
-                <th scope="col">*</th>
-              </tr>
-            </thead>
-            <tbody >
-              <?php $nomor = 1?>
-              <?php foreach($this->session->userdata('pesanan') as $row):?>
-              <tr>
-                <td><?=$nomor?></td>
-                <td><?=$row['namapesanan']?></td>
-                <td>Rp. <?=number_format($row['harga'])?></td>
-                <td width="10"><?=$row['jumlahpesanan']?></td>
-                <td style="text-align:right">Rp. <?=number_format($row['totalharga'])?></td>
-                <td><a href="<?=base_url('removepesanan/'.$row['idpesanan'])?>"><img class="tbl" src="<?=base_url('assets/img/icon/delete.png')?>" width="15" alt=""></a> <a href="<?=base_url('editpesanan/'.$row['idpesanan'].'/'.$row['jumlahpesanan'])?>"><img class="tbl" src="<?=base_url('assets/img/icon/edit.png')?>" width="15" alt=""></a></td>
-              </tr>
-              <?php $nomor++?>
-              <?php endforeach?>
+          <?php if ($this->session->userdata('pesanan') != null) : ?>
+            <table class="table" style="font-size: 12px;">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Menu</th>
+                  <th scope="col">Harga</th>
+                  <th scope="col">Jumlah</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">*</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php $nomor = 1 ?>
+                <?php foreach ($this->session->userdata('pesanan') as $row) : ?>
+                  <tr>
+                    <td><?= $nomor ?></td>
+                    <td><?= $row['namapesanan'] ?></td>
+                    <td>Rp. <?= number_format($row['harga']) ?></td>
+                    <td width="10"><?= $row['jumlahpesanan'] ?></td>
+                    <td style="text-align:right">Rp. <?= number_format($row['totalharga']) ?></td>
+                    <td><a href="<?= base_url('removepesanan/' . $row['idpesanan']) ?>"><img class="tbl" src="<?= base_url('assets/img/icon/delete.png') ?>" width="15" alt=""></a> <a href="<?= base_url('editpesanan/' . $row['idpesanan'] . '/' . $row['jumlahpesanan']) ?>"><img class="tbl" src="<?= base_url('assets/img/icon/edit.png') ?>" width="15" alt=""></a></td>
+                  </tr>
+                  <?php $nomor++ ?>
+                <?php endforeach ?>
 
-              <tr>
-                <td colspan="4"><b>T O T A L</b></td>
-                <td style="text-align:right"><b>Rp. <?=number_format($this->session->userdata('totalharga'))?></b></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="form-group">
-            <label for="kodegejala">Kode Pesanan</label>
-            <input value="" disabled name="kode_penyakit" type="text" class="form-control" id="kodegejala" placeholder="Kode Penyakit">
-          </div>
-          <div class="form-group mb-3">
-            <label for="kodegejala">Nomor Meja</label>
-            <select name="" id="" class="form-control">
-              <option value="">Meja 1</option>
-              <option value="">Meja 2</option>
-            </select>
-          </div>
-          <div class="form-group mb-3">
-            <button class="btn btn-primary">Konfirmasi Pesanan</button>
-          </div>
+
+                <tr>
+                  <td colspan="4"><b>T O T A L</b></td>
+                  <td style="text-align:right"><b>Rp. <?= number_format($this->session->userdata('totalharga')) ?></b></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+            <form action="<?= base_url('PemesananController/prosespesanan') ?>" method="POST">
+              <div class="form-group">
+                <label for="kodegejala">Kode Pesanan</label>
+                <input name="kode_pesanan" disabled type="text" class="form-control" placeholder="pilih nomor meja generate kode pesanan" id="kodepesanan">
+                <input name="kodepesanan" type="hidden" id="kodepesananhide">
+              </div>
+              <div class="form-group mb-3">
+                <label for="kodegejala">Nomor Meja</label>
+                <select name="meja" id="trigerpesanan" class="form-control">
+                  <option value="0">--Pilih Nomor Meja--</option>
+                  <?php for ($i = 1; $i <= $meja[0]->jlhmeja; $i++) : ?>
+                    <option value="<?= $i ?>">Meja <?= $i ?></option>
+                  <?php endfor ?>
+                </select>
+              </div>
+              <small class="text-danger"><i>Pastikan anda sudah memilih nomor meja dengan benar</i> </small>
+              <div class="form-group mb-3">
+                <button type="submit" class="btn btn-primary">Pesan Sekarang</button>
+              </div>
+            <?php endif ?>
+            </form>
+            <?php if ($this->session->userdata('pesanan') == null) : ?>
+              <br><span class="text-danger">Belum ada pesanan</span>
+              <br><span>Silahkan Pilih menu!!</span>
+            <?php endif ?>
         </div>
       </div>
     </div>
@@ -201,6 +195,57 @@
 
   <script src="assets/container/js/script.js"></script>
   <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <!-- custom script -->
+  <!-- cek session pesanan kosong atau tidak -->
+  <?php if ($this->session->userdata('pesanan') == null) : ?>
+    <script>
+      sessionStorage.removeItem("kodepesanan")
+      sessionStorage.removeItem("nomormeja")
+    </script>
+  <?php endif ?>
+  <!-- akhir dari cek session berisi atau tidak -->
+  <script>
+    kodepesanlocal = sessionStorage.getItem('kodepesanan')
+    const trigerpes = document.querySelector('#trigerpesanan')
+    const kodepeshide = document.querySelector('#kodepesananhide')
+    const kodepesanan = document.querySelector('#kodepesanan')
+    console.log("ini isi triger" + trigerpes.value);
+    console.log(kodepesanan.value);
+    if (sessionStorage.getItem('nomormeja')==null) {
+      trigerpes.value = 0
+    } else {
+      trigerpes.value = sessionStorage.getItem('nomormeja')
+    }
+    if (kodepesanan.value == null) {
+
+    } else {
+      kodepesanan.value = sessionStorage.getItem('kodepesanan')
+      kodepeshide.value = sessionStorage.getItem('kodepesanan')
+
+    }
+
+    console.log(sessionStorage.getItem('kodepesanan'))
+    trigerpes.addEventListener('change', (a) => {
+      let kodepesan = "PSN"
+      let nomormeja = a.target.value
+      console.log(nomormeja)
+      let detik = new Date().getSeconds()
+      let menit = new Date().getMinutes()
+      let jam = new Date().getHours()
+      let hari = new Date().getDay()
+      let tanggal = new Date().getDate()
+      let bulan = new Date().getMonth()
+      let tahun = new Date().getFullYear()
+      kodepesanankomplit = kodepesan + nomormeja + detik + menit + jam + tanggal + bulan + tahun
+      kodepesanan.value = kodepesanankomplit
+      kodepeshide.value = kodepesanankomplit
+
+      sessionStorage.setItem("kodepesanan", kodepesanankomplit)
+      sessionStorage.setItem("nomormeja", nomormeja)
+    })
+  </script>
+
+  <!-- end custom script -->
 </body>
 
 </html>

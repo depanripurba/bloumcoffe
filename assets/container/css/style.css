@@ -46,7 +46,7 @@
     bottom: 0;
     height: 2px;
     width: 100%;
-    background: #e13236;
+    background: #d23c8d;
     transform: scaleX(0);
     transform-origin: right;
     transition: transform .2s linear;
@@ -58,7 +58,7 @@
 }
 
 .navigasi ul li a:hover {
-    color: #e13236;
+    color: #d23c8d;
 }
 
 /* sub-menu navigasi */

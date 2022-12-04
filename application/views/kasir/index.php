@@ -1,80 +1,3 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?=$judul?></title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?=base_url('assets/vendor/adminlte/')?>plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="<?=base_url('assets/vendor/adminlte/')?>plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="<?=base_url('assets/vendor/adminlte/')?>plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?=base_url('assets/vendor/adminlte/')?>dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-  <!-- Icon -->
-  <link rel="shortcut icon" href="<?=base_url('assets/img/icon-bloumcoffe.png')?>" type="image/x-icon">
-</head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
-
-  </nav>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="<?=base_url('assets/vendor/adminlte/')?>index3.html" class="brand-link">
-      <img src="<?=base_url('assets/img/icon-bloumcoffe.png')?>" alt="BloumCoffee Logo" class="brand-image" style="opacity: .8">
-      <span class="brand-text font-weight-light text-success"><strong>Bloum Coffee</strong></span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="<?=base_url('assets/img/icon/kasir-icon.png')?>" class="img-circle" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Halo, <?=$this->session->userdata('user')?></a>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-sign-out-alt mr-2"></i>
-              <p class="text">Logout</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -103,61 +26,53 @@
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
-                  <tr>
-                    <th>No.</th>
-                    <th>Kode</th>
-                    <th>Tanggal</th>
-                    <th>Meja</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Opsi</th>
-                  </tr>
+                    <tr>
+                      <th>Kode Pesanan</th>
+                      <th>Tanggal</th>
+                      <th>Meja</th>
+                      <th>Total</th>
+                      <th>Status</th>
+                      <th>Opsi</th>
+                    </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>1.</td>
-                    <td>PSN001</td>
-                    <td>22-11-2022 01:32</td>
-                    <td>1</td>
-                    <td>11.000</td>
-                    <td>
-                      <div class="color-palette-set" align="center">
-                        <div class="bg-warning" style="border-radius:2px"><span>Pending</span></div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <div class="col">
-                          <button type="button" class="btn btn-block btn-primary btn-sm">Bill</button>
-                        </div>
-                        <div class="col">
-                          <button type="button" class="btn btn-block bg-purple btn-sm">Terima</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2.</td>
-                    <td>PSN002</td>
-                    <td>22-11-2022 01:30</td>
-                    <td>3</td>
-                    <td>4.000</td>
-                    <td>
-                      <div class="color-palette-set" align="center">
-                        <div class="bg-info" style="border-radius:2px"><span>Proses</span></div>
-                      </div>
-                    </td>
-                    <td>
-                    <div class="row">
-                        <div class="col">
-                          <button type="button" class="btn btn-block btn-primary btn-sm">Bill</button>
-                        </div>
-                        <div class="col">
-                          <button type="button" class="btn btn-block bg-purple btn-sm">Terima</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                    <?php foreach ($antrian as $row) : ?>
+                      <tr>
+                        <td><a href="#"><b><?= $row["kodePesanan"] ?></a></a></td>
+                        <td><?= $row["tanggal"] ?></td>
+                        <td><?= $row["noMeja"] ?></td>
+                        <td>Rp. <?= number_format($row["totalHarga"]) ?></td>
+                        <td>
+                          <div align="center">
+
+                            <?php
+                            if ($row["statusPesanan"] == 1) {
+                              echo '<div class="pending bg-danger" style="border-radius:2px"><span>New Order</span></div>';
+                            }
+                            if ($row["statusPesanan"] == 2) {
+                              echo '<div class="menunggu" style="border-radius:2px"><span>menunggu</span></div>';
+                            }
+                            if ($row["statusPesanan"] == 3) {
+                              echo '<div class="proses" style="border-radius:2px"><span>proses</span></div>';
+                            }
+                            if ($row["statusPesanan"] == 4) {
+                              echo '<div class="diterima" style="border-radius:2px"><span>diterima</span></div>';
+                            }
+                            if ($row["statusPesanan"] == 5) {
+                              echo '<div class="selesai bg-success" style="border-radius:2px"><span>Selesai</span></div>';
+                            }
+                            ?>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="row">
+                            <div class="col">
+                              <button type="button" class="btn btn-block btn-primary btn-sm detail_pesanan" data-id="<?= $row['kodePesanan'] ?>" data-toggle="modal" data-target="#modal_detail">Detail</button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    <?php endforeach ?>
                   </tbody>
                 </table>
               </div>
@@ -184,39 +99,100 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+  </div>
+  <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="<?=base_url('assets/vendor/adminlte/')?>plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<?=base_url('assets/vendor/adminlte/')?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables -->
-<script src="<?=base_url('assets/vendor/adminlte/')?>plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?=base_url('assets/vendor/adminlte/')?>plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="<?=base_url('assets/vendor/adminlte/')?>plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?=base_url('assets/vendor/adminlte/')?>plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<?=base_url('assets/vendor/adminlte/')?>dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?=base_url('assets/vendor/adminlte/')?>dist/js/demo.js"></script>
-<!-- page script -->
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
-</body>
-</html>
+  <!-- modal Detail -->
+  <div class="modal fade" id="modal_detail">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form id="kirim_pesanan" data-url="<?= base_url() ?>" action="<?= base_url('pemesanancontroller/bayar') ?>" method="POST">
+          <div class="modal-header">
+            <h4 class="modal-title">Detail Pesanan</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row" style="align-items: center">
+              <div class="col-6">
+                <img src="<?= base_url('assets/img/logo-bloumcoffe.png') ?>" style="width:100px" alt="">
+              </div>
+              <div class="col-6" align="right">
+                <h5><b id="id_pesanan">ID Pesanan</b></h5>
+                <input type="hidden" name="form_idpesanan" id="form_idpesanan" value="">
+                <h5>Meja : <span id="nomeja">5</span></h5>
+                <p>Tanggal : <span id="tanggal"></span></p>
+              </div>
+            </div>
+            <br>
+            <div class="row" style="border-bottom:1px solid #ddd">
+              <div class="col-5">
+                <h5><b>Item</b></h5>
+              </div>
+              <div class="col-2" align="center">
+                <h5><b>Jml</b></h5>
+              </div>
+              <div class="col-2" align="center">
+                <h5><b>Harga</b></h5>
+              </div>
+              <div class="col-3" align="right">
+                <h5><b>Total</b></h5>
+              </div>
+            </div>
+
+            <div id="itemss">
+              <div class="row" id="item" style="padding:3px;align-items:center;border-bottom:1px solid #ddd">
+                <div class="col-7">
+                  <font>Mandi</font>
+                </div>
+                <div class="col-2" align="center">
+                  <font>1</font>
+                </div>
+                <div class="col-3" align="right">
+                  <font>Rp. 5000</font>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding:3px;align-items:center;border-bottom:1px solid #ddd">
+              <div class="col-6">
+                <b>Total</b>
+              </div>
+              <div class="col-6" align="right">
+                <b><span id="total"></span></b>
+              </div>
+            </div>
+            <div id="remove1" class="row" style="padding:3px;align-items:center;border-bottom:1px solid #ddd">
+              <div class="col-8">
+                <b>Dibayar</b>
+              </div>
+              <div class="col-4" align="right">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><strong>Rp.</strong></span>
+                  </div>
+                  <input type="number" id="bayar" name="bayar" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div id="remove2" class="row" style="padding:3px;align-items:center">
+              <div class="col-6">
+                <b>Kembalian</b>
+              </div>
+              <div class="col-6" align="right">
+                <b>Rp. <strong id="kembalian">000</strong></b>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-success" id="tbl_submit"><strong>Rp. </strong>Bayar</button>
+          </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
