@@ -1,56 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= base_url() ?>/assets/container/css/style.css">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/bootstrap/css/bootstrap.min.css" defer>
-    <title>Official Website Bloum Coffe</title>
-</head>
-
-<body>
-
-    <nav class="navigasi">
-        <div class="logo">
-            <img src="<?= base_url() ?>assets/img/bloumcoffe.jpg" width="60px">
-        </div>
-        <ul>
-            <li>
-                <div class="select"><a href="">Beranda</a></div>
-            </li>
-            <li>
-                <div class="select"><a href="https://s3indonesia.co.id">Produk</a></div>
-            </li>
-            <li>
-                <div class="select"><a href="tentang">Tentang</a></div>
-            </li>
-            <li>
-                <div class="select"><a href="kontak">Kontak</a></div>
-            </li>
-            <?php if (isset($_SESSION['data'])) : ?>
-                <li>
-                    <div class="select"><a href="logout.php">Log Out</a></div>
-                </li>
-            <?php endif ?>
-        </ul>
-        <div class="menu-toggle">
-            <input type="checkbox">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
-
-    <div class="hamparan"></div>
-
-    <div style="height: 70px;"></div>
     <!-- bagian kategori menu -->
-
     <!-- bagian isi -->
-
     <section style="padding:30px;background:#f5f5f5">
         <div class="container" style="padding:20px;background: #fff;border-radius:5px;">
             <div class="row">
@@ -68,28 +17,28 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-3 border rounded align-self-start">
                         <form action="../PemesananController/banyakpesanan" method="GET" class="form">
-                            <span><i class="text-danger">*Silahkan Sesuaikan Jumlah Pesanan</i> </span>
-                            <div class="form-group mb-3">
+                            <div class="mt-2"></div>
+                            <span class="mt-2"><i class="text-danger">*Silahkan Sesuaikan Jumlah Pesanan</i> </span>
+                            <div class="form-group mt-2">
                                 <input name="namapesanan" type="hidden" value="<?= $detail->namamenu ?>">
                                 <label for="nama">Nama Pesanan</label>
                                 <input type="hidden" name="id" value="<?= $detail->id ?>">
                                 <input type="hidden" name="harga" value="<?= $detail->harga ?>">
                                 <input value="<?= $detail->namamenu ?>" id="nama" disabled type="text" class="form-control">
                             </div>
-                            <div class="form-group mb-3">
+                            <div class="form-group mt-2">
                                 <label for="jumlah">Jumlah</label>
                                 <input type="number" value="1" id="jumlah" name="jumlah" class="form-control" required>
                             </div>
-                            <div class="form-group mb-3">
+                            <div class="form-group mt-2 mb-3">
                                 <button type="submit" class="btn btn-success">Tambahkan</button>
                             </div>
                         </form>
                     </div>
-
                     <div class="col-5 border rounded align-self-start" style="margin-left: 20px!important;">
+                        <div class="mt-2"></div>
                         <span class="text-bold">Pesanan Anda</span>
                         <!-- start tabel -->
                         <?php if ($this->session->userdata('pesanan') != null) : ?>
@@ -113,7 +62,10 @@
                                             <td>Rp. <?= number_format($row['harga']) ?></td>
                                             <td width="10"><?= $row['jumlahpesanan'] ?></td>
                                             <td style="text-align:right">Rp. <?= number_format($row['totalharga']) ?></td>
-                                            <td><a href="<?= base_url('removepesanan/' . $row['idpesanan']) ?>"><img class="tbl" src="<?= base_url('assets/img/icon/delete.png') ?>" width="15" alt=""></a> <a href="<?= base_url('editpesanan/' . $row['idpesanan'] . '/' . $row['jumlahpesanan']) ?>"><img class="tbl" src="<?= base_url('assets/img/icon/edit.png') ?>" width="15" alt=""></a></td>
+                                            <td>
+                                                <a href="<?= base_url('removepesanan/' . $row['idpesanan']) ?>"><i class="icon fas fa-trash"></i></a>
+                                                <a href="<?= base_url('editpesanan/' . $row['idpesanan'] . '/' . $row['jumlahpesanan']) ?>"><i class="icon fas fa-edit"></i></a>
+                                            </td>
                                         </tr>
                                         <?php $nomor++ ?>
                                     <?php endforeach ?>
@@ -127,13 +79,13 @@
                                 </tbody>
                             </table>
                             <form action="<?= base_url('PemesananController/prosespesanan') ?>" method="POST">
-                                <div class="form-group">
-                                    <label for="kodegejala">Kode Pesanan</label>
+                                <div class="form-group mb-2">
+                                    <label for="kodegejala" class="mb-1">Kode Pesanan</label>
                                     <input name="kode_pesanan" disabled type="text" class="form-control" placeholder="pilih nomor meja generate kode pesanan" id="kodepesanan">
                                     <input name="kodepesanan" type="hidden" id="kodepesananhide">
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="kodegejala">Nomor Meja</label>
+                                <div class="form-group">
+                                    <label for="kodegejala" class="mb-1">Nomor Meja</label>
                                     <select name="meja" id="trigerpesanan" class="form-control">
                                         <option value="0">--Pilih Nomor Meja--</option>
                                         <?php for ($i = 1; $i <= $meja[0]->jlhmeja; $i++) : ?>
@@ -142,8 +94,8 @@
                                     </select>
                                 </div>
                                 <small class="text-danger"><i>Pastikan anda sudah memilih nomor meja dengan benar</i> </small>
-                                <div class="form-group mb-3">
-                                    <button type="submit" class="btn btn-primary">Pesan Sekarang</button>
+                                <div class="form-group mt-3 mb-3">
+                                    <button type="submit" class="btn btn-primary"><strong>Pesan Sekarang</strong></button>
                                 </div>
                             <?php endif ?>
                             </form>
@@ -153,7 +105,7 @@
                             <?php endif ?>
                     </div>
                     <!-- menu kanan -->
-                    <center><a href="<?= base_url() ?>" class="btn btn-primary mt-3">Lihat Menu Lainnya</a></center>
+                    <right><a href="<?= base_url() ?>" class="btn btn-primary mt-3">< Lihat Menu Lainnya</a></right>
                 </div>
             </div>
 

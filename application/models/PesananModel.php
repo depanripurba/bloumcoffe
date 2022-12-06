@@ -75,9 +75,12 @@ class PesananModel extends CI_Model
 
     public function setpesanan()
     {
+        $kodepesanan = $this->session->userdata("pesananPOST")["kodePesanan"];
+        $meja = $this->session->userdata("pesananPOST")["meja"];
+
         foreach ($this->session->userdata('pesanan') as $row) {
             $data2 = array(
-                'kodePesanan' => $_POST['kodepesanan'],
+                'kodePesanan' => $kodepesanan,
                 "pesanan" => $row['namapesanan'],
                 "jumlah" => $row['jumlahpesanan'],
                 "harga" => $row['harga'],
@@ -86,11 +89,12 @@ class PesananModel extends CI_Model
             $this->db->insert('masterpesanan', $data2);
         }
         $data = array(
-            'kodePesanan' => $_POST['kodepesanan'],
+            'kodePesanan' => $kodepesanan,
             "totalHarga" => $this->session->userdata('totalharga'),
             "statusPesanan" => 1,
-            "tanggal" => date('d / M / y'),
-            "noMeja" => $_POST['meja'],
+            "tanggal" => date('d / m / y'),
+            "noMeja" => $meja,
+            "idpemesan" => $this->session->userdata('loginuser')['id'],
             "totalHargaAkhir" => $this->session->userdata('totalharga')
 
         );
@@ -127,5 +131,32 @@ class PesananModel extends CI_Model
     public function selesaimasak($kode){
         $this->db->where('kodePesanan', $kode);
         return $this->db->update('pesanan', ['statusPesanan' => 4]);
+    }
+
+    public function updatepemesanan($id,$point,$total)
+	{
+		$data =
+		[
+			'diskon'=>$point,
+            'totalHargaAkhir'=>$total
+		];
+    	$this->db->where('kodePesanan',$id);
+		return $this->db->update('pesanan',$data);
+	}	
+
+    public function ambildata($idpesanan)
+    {   
+        $data = [
+            "kodePesanan"=>$idpesanan
+        ];
+        return $this->db->get_where('pesanan',$data)->result()[0];
+    }
+
+    public function ambilpesanan($idpesanan)
+    {   
+        $data = [
+            "kodePesanan"=>$idpesanan
+        ];
+        return $this->db->get_where('masterpesanan',$data)->result();
     }
 }

@@ -4,7 +4,7 @@ class KategoriModel extends CI_Model
 {
 	public function getAll()
 	{
-		return $this->db->get('kategori')->result();
+		return $this->db->get('kategori')->result_array();
 	}
 	public function getcount()
 	{
@@ -24,6 +24,5 @@ class KategoriModel extends CI_Model
 	{
 		return $this->db->delete('kategori', array('id_kategori' => $id));
 	}
-	
 
 }

@@ -67,4 +67,24 @@ class OwnerModel extends CI_Model
     {
         return $this->db->get_where('kategori',['id_kategori'=>$id])->row_array();
     }
+
+    public function getAllLaporan()
+	{
+        $tanggal_hari_ini = date('d / m / y');
+        $data = [
+            'tanggal' => $tanggal_hari_ini,
+            'statusPesanan' => 5
+        ];
+        return $this->db->get_where('pesanan',$data)->result_array();
+    }
+
+    public function getAllLaporanTanggal($tgl)
+    {
+        $data = [
+            'tanggal' => $tgl,
+            'statusPesanan' => 5
+        ];
+        return $this->db->get_where('pesanan',$data)->result_array();
+        return $this->db->get('pesanan')->result_array();
+    }
 }

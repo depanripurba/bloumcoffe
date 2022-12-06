@@ -10,6 +10,10 @@ class AksesOwner extends CI_Controller
         parent::__construct();
 
         $this->load->model('OwnerModel');
+        $this->load->model('MenuModel');
+        $this->load->model('KategoriModel');
+        $this->load->model('MejaModel');
+        $this->load->model('DaftarModel');
         $this->load->library('form_validation'); // library validation from CI
 
         // Memastikan User yang login
@@ -26,6 +30,12 @@ class AksesOwner extends CI_Controller
         {
             $data['judul'] = "BloumCoffe | Owner";
             $data['profil'] = "assets/img/icon/kasir-icon.png";
+            $data['jlmh_kategori'] = $this->db->count_all('kategori');
+            $data['jlmh_menu'] = $this->db->count_all('menu');
+            $data['jlmh_akun'] = $this->db->count_all('daftar');
+            $data['jlmh_transaksi'] = $this->db->count_all('pesanan');
+            $data['laporan'] = $this->OwnerModel->getAllLaporan();
+
             $this->load->view('owner/templates/header',$data);
             $this->load->view('owner/templates/sidebar',$data);
             $this->load->view('owner/index',$data);
@@ -205,5 +215,200 @@ class AksesOwner extends CI_Controller
     public function kategori_get()
     {
         echo json_encode($this->OwnerModel->getKategori($_POST['id']));
+    }
+
+    // 4
+    public function menu()
+    {
+        if ($this->session->userdata('role') == 3) {
+            $data['judul'] = "BloumCoffe | Owner - Kelola Menu";
+            $data['profil'] = "assets/img/icon/kasir-icon.png";
+            $data['kategori'] = "BloumCoffe | Owner - Kelola Menu";
+            $data['jenis'] =  $this->KategoriModel->getAll();
+            $data['menu'] =  $this->MenuModel->getAll();
+
+            $this->load->view('owner/templates/header', $data);
+            $this->load->view('owner/templates/sidebar', $data);
+            $this->load->view('owner/master/menu', $data);
+            $this->load->view('owner/templates/footer', $data);
+        } else {
+            redirect('masterlogin/auth');
+        }
+    }
+
+    public function tambahmenu()
+    {
+        $ekstension                     = explode(".", $_FILES['menu']['name'])[1];
+        $namamenu                       = $_POST['namamenu'];
+        $filename                       = str_replace(" ", "", $_POST['namamenu']);
+        $harga                          = $_POST['harga'];
+        $namagambar                     = $filename . "." . $ekstension;
+        $kategori                       = $_POST['kategori'];
+        $config['upload_path']          = FCPATH . '/upload/menu';
+        $config['allowed_types']        = 'gif|jpg|jpeg|png';
+        $config['file_name']            = $filename;
+        $config['overwrite']            = true;
+        $config['max_size']             = 1024; // 1MB
+        $config['max_width']            = 1080;
+        $config['max_height']           = 1080;
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('menu')) {
+            $data['error'] = $this->upload->display_errors();
+            var_dump($data['error']);
+        }
+        $push = $this->MenuModel->tambahmenu($namamenu, $harga, $namagambar, $kategori);
+        if ($push) {
+            redirect(base_url('aksesowner/menu'));
+        }
+    }
+
+    public function hapusmenu($id, $gambar)
+    {
+        if ($this->MenuModel->hapus($id, $gambar)) {
+            redirect(base_url('aksesowner/menu'));
+        }
+    }
+
+    public function meja()
+    {
+        if ($this->session->userdata('role') == 3) {
+            $data['judul'] = "BloumCoffe | Owner - Kelola Menu";
+            $data['profil'] = "assets/img/icon/kasir-icon.png";
+            $data['kategori'] = "BloumCoffe | Owner - Kelola Menu";
+            $data['jenis'] =  $this->KategoriModel->getAll();
+            $data['jlhmeja'] =  $this->MejaModel->getAll();
+
+            $this->load->view('owner/templates/header', $data);
+            $this->load->view('owner/templates/sidebar', $data);
+            $this->load->view('meja', $data);
+            $this->load->view('owner/templates/footer', $data);
+        } else {
+            redirect('masterlogin/auth');
+        }
+    }
+
+    public function tambahmeja()
+    {
+        if($this->MejaModel->updatemeja()){
+            $this->session->set_flashdata('pesan',"berhasil");
+            redirect('aksesowner/meja');
+        }
+    }
+
+
+    public function laporan()
+    {
+         // Memastikan Owner Login
+         if ($this->session->userdata('role') == 3 )
+         {
+             $data['judul'] = "BloumCoffe | Owner - Laporan";
+             $data['profil'] = "assets/img/icon/kasir-icon.png";
+ 
+             $data['laporan'] = $this->OwnerModel->getAllLaporan();
+ 
+             $this->load->view('owner/templates/header',$data);
+             $this->load->view('owner/templates/sidebar',$data);
+             $this->load->view('owner/laporan/index',$data);
+             $this->load->view('owner/templates/footer',$data);
+         }
+         else
+         {
+             redirect('masterlogin/auth');
+         }
+    }
+
+    public function cetak()
+    {
+         // Memastikan Owner Login
+         if ($this->session->userdata('role') == 3 )
+         {
+            $this->load->library('Pdf'); // MEMANGGIL LIBRARY PDF
+
+             $data['judul'] = "BloumCoffe | Owner - Laporan";
+             $data['profil'] = "assets/img/icon/kasir-icon.png";
+ 
+             $data['laporan'] = $this->OwnerModel->getAllLaporan();
+ 
+             $this->load->view('owner/laporan/cetak',$data);
+         }
+         else
+         {
+             redirect('masterlogin/auth');
+         }
+    }
+
+    public function waktu()
+    {
+
+        // Memastikan Owner Login
+         if ($this->session->userdata('role') == 3 )
+         {
+            if ($_POST['waktu']=="")
+            {
+                redirect('aksesowner/laporan');
+            }
+            else
+            {
+
+                $waktu = $_POST['waktu'];
+                $pecah = explode("-",$waktu);
+                $dd = $pecah[2];
+                $mm = $pecah[1];
+                $yy = $pecah[0];
+                $year = str_split($yy,2)[1];
+
+                $date = [$dd,' / ',$mm,' / ',$year];
+                $tgl = implode($date);
+        
+                echo $tgl;
+                
+                $data['tgl'] = $tgl;
+
+                $data['judul'] = "BloumCoffe | Owner - Laporan";
+                $data['profil'] = "assets/img/icon/kasir-icon.png";
+                $data['laporan'] = $this->OwnerModel->getAllLaporanTanggal($tgl);
+                $this->load->view('owner/templates/header',$data);
+                $this->load->view('owner/templates/sidebar',$data);
+                $this->load->view('owner/laporan/index',$data);
+                $this->load->view('owner/templates/footer',$data);
+            }
+         }
+         else
+         {
+             redirect('masterlogin/auth');
+         }
+    }
+
+    public function cetakWaktu($tgl)
+    {
+         // Memastikan Owner Login
+         if ($this->session->userdata('role') == 3 )
+         {
+            $this->load->library('Pdf'); // MEMANGGIL LIBRARY PDF
+
+             $data['judul'] = "BloumCoffe | Owner - Laporan";
+             $data['profil'] = "assets/img/icon/kasir-icon.png";
+ 
+             $data['laporan'] = $this->OwnerModel->getAllLaporanWaktu($tgl);
+ 
+             $this->load->view('owner/laporan/cetak',$data);
+         }
+         else
+         {
+             redirect('masterlogin/auth');
+         }
+    }
+
+    public function pelanggan()
+    {
+        $data['pengguna'] = $this->DaftarModel->membedakanpelanggan();
+        $data['judul'] = "BloumCoffe | Owner - Laporan";
+        $data['profil'] = "assets/img/icon/kasir-icon.png";
+        $this->load->view('owner/templates/header',$data);
+        $this->load->view('owner/templates/sidebar',$data);
+        $this->load->view('owner/laporan/laporancustomer',$data);
+        $this->load->view('owner/templates/footer',$data);
     }
 }

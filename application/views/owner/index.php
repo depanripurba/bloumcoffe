@@ -21,7 +21,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3><?=$jlmh_kategori?></h3>
 
                 <p>Kategori</p>
               </div>
@@ -36,7 +36,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3><?=$jlmh_menu?></h3>
 
                 <p>Menu</p>
               </div>
@@ -51,9 +51,9 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3><?=$jlmh_akun?></h3>
 
-                <p>Transaksi</p>
+                <p>User</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -66,9 +66,9 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3><?=$jlmh_transaksi?></h3>
 
-                <p>Profit</p>
+                <p>Transaksi</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -90,108 +90,25 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Kode Pesanan</th>
+                  <th>No.</th>
+                  <th>Kode Pemesanan</th>
                   <th>Tanggal</th>
-                  <th>Meja</th>
-                  <th>Total</th>
-                  <th>Status</th>
-                  <th>Opsi</th>
+                  <th>Pendapatan</th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php $no = 1 ; foreach ($laporan as $user) : ?>
                 <tr>
-                  <td><a href="#"><b>PSN001</a></a></td>
-                  <td>22-11-2022 01:32</td>
-                  <td>1</td>
-                  <td>11.000</td>
-                  <td>
-                    <div align="center">
-                      <div class="pending" style="border-radius:2px"><span>Pending</span></div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <div class="col">
-                        <button type="button" class="btn btn-block btn-primary btn-sm" data-toggle="modal" data-target="#modal_detail">Detail</button>
-                      </div>
-                    </div>
-                  </td>
+                    <td width="50"><?=$no++?></td>
+                    <td><?=$user['kodePesanan']?></td>
+                    <td><?=$user['tanggal']?></td>
+                    <td>Rp. <?=$user['totalHarga']?></td>
                 </tr>
-                <tr>
-                  <td><a href="#"><b>PSN002</a></a></td>
-                  <td>22-11-2022 01:30</td>
-                  <td>3</td>
-                  <td>4.000</td>
-                  <td>
-                    <div align="center">
-                      <div class="menunggu" style="border-radius:2px"><span>Menunggu</span></div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <div class="col">
-                        <button type="button" class="btn btn-block btn-primary btn-sm" data-toggle="modal" data-target="#modal_detail">Detail</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="#"><b>PSN002</a></a></td>
-                  <td>22-11-2022 01:30</td>
-                  <td>3</td>
-                  <td>4.000</td>
-                  <td>
-                    <div align="center">
-                      <div class="proses" style="border-radius:2px"><span>Proses</span></div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <div class="col">
-                        <button type="button" class="btn btn-block btn-primary btn-sm" data-toggle="modal" data-target="#modal_detail">Detail</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="#"><b>PSN002</a></a></td>
-                  <td>22-11-2022 01:30</td>
-                  <td>3</td>
-                  <td>4.000</td>
-                  <td>
-                    <div align="center">
-                      <div class="diterima" style="border-radius:2px"><span>Diterima</span></div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <div class="col">
-                        <button type="button" class="btn btn-block btn-primary btn-sm" data-toggle="modal" data-target="#modal_detail">Detail</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="#"><b>PSN002</a></a></td>
-                  <td>22-11-2022 01:30</td>
-                  <td>3</td>
-                  <td>4.000</td>
-                  <td>
-                    <div align="center">
-                      <div class="selesai" style="border-radius:2px"><span>Selesai</span></div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <div class="col">
-                        <button type="button" class="btn btn-block btn-primary btn-sm" data-toggle="modal" data-target="#modal_detail">Detail</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                <?php endforeach ; ?>
                 </tbody>
               </table>
             </div>
+            <!-- /.card-body -->
             <!-- /.card-body -->
           </div>
           </div>

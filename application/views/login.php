@@ -5,14 +5,14 @@
   <title>Silahkan Login</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="<?=base_url('assets/')?>css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="<?=base_url('assets/')?>css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/') ?>css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/') ?>css/buttons.bootstrap4.min.css">
   <!-- end datatable -->
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?= base_url('assets/') ?>css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url('assets/') ?>css/adminlte.min.css">
-   <link rel="stylesheet" href="<?= base_url('assets/') ?>css/bootstrap-4.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/') ?>css/bootstrap-4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="<?= base_url('assets/') ?>css/toastr.min.css">
   <!-- Theme style -->
@@ -83,15 +83,26 @@
             <!-- <div class="icon d-flex align-items-center justify-content-center">
               <i class="fa fa-user text-white"></i>
             </div> -->
+            <?php
+            if ($this->session->flashdata('flash') != null) {
+              echo $this->session->flashdata('flash');
+            }
+            ?>
+
+            <?php if ($this->session->flashdata('flash') != null) : ?>
+              <div class="alert alert-danger" role="alert">
+               Berhasil Daftar Silahkan Login
+              </div>
+            <?php endif ?>
             <h3 class="text-center mb-4">Silahkan Login Terlebih Dahulu</h3>
-            <form action="<?= base_url('auth/validate') ?>" method="POST" class="login-form">
+            <form action="<?= base_url('validasicontroller/proseslogin') ?>" method="POST" class="login-form">
               <div class="form-group">
                 <input name="username" type="text" class="form-control rounded-left" placeholder="Username" required>
               </div>
               <div class="form-group d-flex">
                 <input name="password" type="password" class="form-control rounded-left" placeholder="Password" required>
               </div>
-                <div style="text-align:center">Belum Punya Akun ?? <a href="<?=base_url('daftar')?>">Daftar</a></div>
+              <div style="text-align:center">Belum Punya Akun ?? <a href="<?= base_url('daftar') ?>">Daftar</a></div>
               <div class="form-group">
                 <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Login</button>
               </div>
@@ -124,7 +135,6 @@
       },
       buttonsStyling: false
     })
-    
   </script>
   <script>
     var pesan = '<?= $this->session->flashdata('alert') ?>';

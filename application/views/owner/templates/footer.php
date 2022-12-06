@@ -76,3 +76,22 @@
 <script src="<?=base_url('assets/js/')?>script.js"></script>
 </body>
 </html>
+
+
+<script>
+
+let tombolhapus = document.querySelectorAll(".tombolhapus");
+
+tombolhapus.forEach((a)=>{
+  a.addEventListener('click',(a)=>{
+    let id = a.target.getAttribute('data-id');
+    let gambar = a.target.getAttribute('data-gambar');
+    let cek = confirm("apakah anda yakin menghapus");
+    if(cek==true){
+      document.location.href = "http://localhost/bloumcoffe/aksesowner/hapusmenu/"+id+"/"+gambar
+    }
+
+  })
+})
+
+</script>

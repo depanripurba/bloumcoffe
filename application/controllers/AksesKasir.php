@@ -11,6 +11,7 @@ class AksesKasir extends CI_Controller
 
         // Memastikan User yang login
         $this->load->Model('PesananModel');
+        $this->load->Model('DaftarModel');
         if (!$this->session->userdata('role')) {
             redirect('masterlogin/auth');
         }
@@ -64,7 +65,19 @@ class AksesKasir extends CI_Controller
         }
         $pesanan = $this->PesananModel->getPesananByIDD($_POST['id']);
         $masterarraypre['detailpes'] = $masterarray;
-        $masterarraypre['kodePesanan'] = $_POST['id'];
+        $masterarraypre['point'] = $pesanan[0]->noMeja;
+
+        if($pesanan[0]->idpemesan=="PE"){
+            $masterarraypre['point'] = 0;
+            $masterarraypre['nama'] = "Pengunjung";
+            $masterarraypre['id'] = "PE";
+        }else{
+            $point = $this->DaftarModel->getspesifik($pesanan[0]->idpemesan);
+            $masterarraypre['point'] = $point->point;
+            $masterarraypre['nama'] = $point->nama;
+            $masterarraypre['id'] = $point->id_customer;
+        }
+        $masterarraypre['kodePesanan'] = $_POST['id']; 
         $masterarraypre['noMeja'] = $pesanan[0]->noMeja;
         $masterarraypre['tanggal'] = $pesanan[0]->tanggal;
         $masterarraypre['statusPesanan'] = $pesanan[0]->statusPesanan;

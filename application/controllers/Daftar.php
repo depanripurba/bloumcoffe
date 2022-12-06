@@ -41,8 +41,19 @@ class Daftar extends CI_Controller {
         $password = $_POST['password'];
         $senderdata = $this->DaftarModel->Daftar($nama,$tgl_lahir,$no_hp,$alamat,$username,$password);
        if($senderdata){
-        echo "Berhasil Daftar";
+        $this->session->set_flashdata("berhasil","berhasil");
+		redirect(base_url('login'));
        }
+	}
+
+	public function profile()
+	{
+		
+        $data['judul'] = "Profile";
+		$data['profile'] = $this->DaftarModel->spesifikuser($this->session->userdata('loginuser')['id']);
+        $data['dp'] = base_url('assets/img/icon-bloumcoffe.png');
+        $this->load->view('pemesanan/templates/header', $data);
+        $this->load->view('profile', $data);
 	}
 
 }

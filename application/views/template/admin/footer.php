@@ -33,6 +33,12 @@
 </script>
 
 <script>
+  function formatRupiah(money) {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR'
+    }).format(money);
+  }
   // bagian realtime dari select kasir
   $('.detail_pesanan').on('click', function() {
     // Mendapatkan data id CS
@@ -40,13 +46,6 @@
 
     // Membuat variabel controller
     var ubahcs = 'admin/edtcs';
-
-    function formatRupiah(money) {
-      return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR'
-      }).format(money);
-    }
     let totalll = 0;
 
     $.ajax({
@@ -77,10 +76,14 @@
           $('#tbl_submit').text('Terima')
           $('#remove1').hide()
           $('#remove2').hide()
+          $('#pemesan').text(data.nama)
+          $('#cetakbill').show()
+
         } else if (data.statusPesanan == "2") {
           $('#tbl_submit').hide()
           $('#remove1').hide()
           $('#remove2').hide()
+          $('#cetakbill').hide()
         } else if (data.statusPesanan == "3") {
           $('#tbl_submit').hide()
           $('#remove1').hide()
@@ -92,14 +95,32 @@
           $('#tbl_submit').text('Bayar')
           $('#remove1').show()
           $('#remove2').show()
+          $('#point').val(data.point)
+          $('#point2').val(data.point)
+          $('#pemesan').text(data.nama)
+          $('#totalbelanja').val(data.totalHarga);
+          $('#totalbelanja2').val(data.totalHarga);
+          $('#kodebelanja').val(data.kodePesanan);
+          $('#temptotal').val(data.totalHarga);
+          $('#id').val(data.id);
+          $('#cetakbill').show()
+
         } else if (data.statusPesanan == "5") {
+          let redi = document.querySelector("#kirim_pesanan")
+        redi.action = redi.getAttribute('data-url') + "pemesanancontroller/cetakbill/"+data.kodePesanan+"/cetakbilll"
           $('#tbl_submit').show()
           $('#tbl_submit').text('Cetak')
           $('#remove1').hide()
           $('#remove2').hide()
+          $('#cetakbill').hide()
+
         }
 
-
+        $("#cetakbill").on("click", () => {
+          let redi = document.querySelector("#kirim_pesanan")
+          tes = redi.getAttribute('data-url')
+          document.location.href = tes+"pemesanancontroller/cetakbill/"+data.kodePesanan+"/cetakbill"
+        })
 
         item = document.getElementById('item');
         itemss = document.getElementById('itemss');
@@ -127,9 +148,13 @@
           </div>`
         }
         itemss.innerHTML = temp;
+
+
       }
 
     });
+
+
 
 
 
@@ -170,7 +195,12 @@
               <font style="font-size:20px">` + data['detailpes'][i].jumlah + `</font>
             </div>`
         }
+
+
         itemss.innerHTML = temp;
+
+
+
         // end looping
         console.log(data);
         // cek statuspesanan
@@ -196,17 +226,33 @@
   });
   // bagian realtime dari kasir
 
-  var bayar     = document.getElementById('bayar');
-  var total     = $('#total').text();
-
-  bayar.addEventListener('keyup',function(){
-      var isi = bayar.value - total;
-      $("#kembalian").text(isi);
-      $('#change').attr('value', isi);
+  $('#gunakan').change(function() {
+    // cek value
+    if ($(this).val() == 1) {
+      let total2 = $('#totalbelanja2').val();
+      $('#total').text(formatRupiah(total2));
+    }
+    if ($(this).val() == 2) {
+      let total2 = $('#totalbelanja2').val() - $('#point').val();
+      $('#total').text(formatRupiah(total2));
+      $('#temptotal').val(total2);
+    }
+    $('#statusbayar').val($(this).val());
+    $('#kembalian').text()
   });
 
+  var bayar = document.getElementById('bayar');
 
+
+  bayar.addEventListener('keyup', function() {
+    total = $('#temptotal').val();
+    var isi = bayar.value - total;
+    $("#kembalian").text(isi);
+    $('#change').attr('value', isi);
+  });
 </script>
+
+
 
 </body>
 

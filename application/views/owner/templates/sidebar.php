@@ -50,9 +50,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
+                <a href="<?=base_url('aksesowner/menu')?>" class="nav-link">
                   <i class="far nav-icon"></i>
-                  <p>Menu</p>
+                  <p>Menu </p>
                 </a>
               </li>
             </ul>
@@ -66,42 +66,38 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
-              <i class="nav-icon far fa-list-alt"></i>
-              <p>
-                Menu
-              </p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="<?=base_url('aksesowner/meja')?>" class="nav-link">
               <i class="nav-icon far fas fa-table"></i>
               <p>
                 Meja
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas far fa-clipboard"></i>
+              <p>
+                Laporan
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                <a href="<?=base_url('aksesowner/laporan')?>" class="nav-link">
                   <i class="far nav-icon"></i>
-                  <p>Info Meja</p>
+                  <p>Penjualan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
+                <a href="<?=base_url('aksesowner/pelanggan')?>" class="nav-link">
                   <i class="far nav-icon"></i>
-                  <p>Input Meja</p>
+                  <p>Pelanggan</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.0" class="nav-link">
-              <i class="nav-icon fas far fa-clipboard"></i>
-              <p>Laporan</p>
-            </a>
-          </li>
+
           <li class="nav-header"></li>
           <li class="nav-item">
             <a href="" data-toggle="modal" data-target="#modal_logout" class="nav-link">

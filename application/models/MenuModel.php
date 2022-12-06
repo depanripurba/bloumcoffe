@@ -8,24 +8,30 @@ class MenuModel extends CI_Model
 	}
 	public function getspesifik($id)
 	{
-		return $this->db->get_where('menu',array('id' => $id))->result()[0];
+		return $this->db->get_where('menu', array('id' => $id))->result()[0];
 	}
 	public function getcount()
 	{
 		return $this->db->count_all('daftar');
 	}
 	//fungsi untuk add data 
-	public function tambahMenu($namamenu, $harga, $namagambar,$kategori)
+	public function tambahMenu($namamenu, $harga, $namagambar, $kategori)
 	{
 		$data = array(
-            'namamenu'=>$namamenu,
-            'harga'=>$harga,
-            'namagambar'=>$namagambar,
-            'kategori'=>$kategori,
+			'namamenu' => $namamenu,
+			'harga' => $harga,
+			'namagambar' => $namagambar,
+			'kategori' => $kategori,
 		);
+
 
 		return $this->db->insert('menu', $data);
 	}
-	
 
+	public function hapus($id,$gambar)
+	{
+		unlink("upload/menu/$gambar");
+		$this->db->where('id', $id);
+		return $this->db->delete('menu');
+	}
 }

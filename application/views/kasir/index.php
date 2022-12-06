@@ -1,3 +1,12 @@
+  <?php if($this->session->flashdata('print')==true): ?>
+    <script>
+      let tes = "<?=$this->session->flashdata('url')?>"
+      document.location.href = tes
+    </script>
+
+  <?php endif ?>
+  
+  
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -123,6 +132,7 @@
                 <input type="hidden" name="form_idpesanan" id="form_idpesanan" value="">
                 <h5>Meja : <span id="nomeja">5</span></h5>
                 <p>Tanggal : <span id="tanggal"></span></p>
+                <p>Pemesan : <span id="pemesan"></span></p>
               </div>
             </div>
             <br>
@@ -163,6 +173,26 @@
                 <b><span id="total"></span></b>
               </div>
             </div>
+
+            <div id="remove2" class="row" style="padding:3px;align-items:center;border-bottom:1px solid #ddd">
+              <div class="col-8 row">
+               <label class="col-3" for="point">Gunakan Point</label>
+               <select id="gunakan"  name="gunakan" class="form-control use col-3">
+                <option value="1">Tidak</option>
+                <option value="2">Ya</option>
+               </select>
+              </div>
+              <div class="col-4" align="right">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><strong>Point </strong></span>
+                  </div>
+                  <input disabled type="number" id="point2" name="point2" value="" class="form-control">
+                  <input type="hidden" name="point" id="point">
+                </div>
+              </div>
+            </div>
+
             <div id="remove1" class="row" style="padding:3px;align-items:center;border-bottom:1px solid #ddd">
               <div class="col-8">
                 <b>Dibayar</b>
@@ -172,10 +202,17 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><strong>Rp.</strong></span>
                   </div>
+                  <input type="hidden" id="totalbelanja" name="totalbelanja">
+                  <input type="hidden" id="totalbelanja2" name="totalbelanja2">
+                  <input type="hidden" id="kodebelanja" name="kodebelanja">
+                  <input type="hidden" id="temptotal" name="temptotal">
+                  <input type="hidden" id="statusbayar" name="statusbayar" value="1">
+                  <input type="hidden" id="id" name="id">
                   <input type="number" id="bayar" name="bayar" class="form-control">
                 </div>
               </div>
             </div>
+            
             <div id="remove2" class="row" style="padding:3px;align-items:center">
               <div class="col-6">
                 <b>Kembalian</b>
@@ -187,6 +224,7 @@
           </div>
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+            <button type="button" class="btn btn-default" id="cetakbill">Cetak Bill</button>
             <button type="submit" class="btn btn-success" id="tbl_submit"><strong>Rp. </strong>Bayar</button>
           </div>
         </form>

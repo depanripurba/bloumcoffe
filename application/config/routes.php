@@ -62,3 +62,7 @@ $route['kelolamenu'] = 'AdminController/kelolamenu';
 $route['detail/(:any)'] = 'PemesananController/detailpemesanan/$1';
 $route['removepesanan/(:num)'] = 'PemesananController/removepesanan/$1';
 $route['editpesanan/(:num)/(:any)'] = 'PemesananController/editpesanan/$1/$2';
+
+$route['aksesowner/hapusmenu/(:num)/(:any)'] = 'aksesowner/hapusmenu/$1/$2';
+$route['pemesanancontroller/bil/(:any)/(:any)/(:any)/(:any)/(:any)'] = 'pemesanancontroller/bil/$1/$2/$3/$4/$5';
+$route['pemesanancontroller/cetakbill/(:any)/(:any)'] = 'pemesanancontroller/printdetail/$1/$2';
